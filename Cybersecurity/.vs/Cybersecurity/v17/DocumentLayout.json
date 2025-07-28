@@ -1,0 +1,137 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\vladi\\Desktop\\Cybersecurity\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8B11833A-EFBF-4A04-86F1-891C50D0753F}|Cybersecurity\\Cybersecurity.csproj|c:\\users\\vladi\\desktop\\cybersecurity\\cybersecurity\\scenariomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B11833A-EFBF-4A04-86F1-891C50D0753F}|Cybersecurity\\Cybersecurity.csproj|solutionrelative:cybersecurity\\scenariomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B11833A-EFBF-4A04-86F1-891C50D0753F}|Cybersecurity\\Cybersecurity.csproj|c:\\users\\vladi\\desktop\\cybersecurity\\cybersecurity\\resultform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B11833A-EFBF-4A04-86F1-891C50D0753F}|Cybersecurity\\Cybersecurity.csproj|solutionrelative:cybersecurity\\resultform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B11833A-EFBF-4A04-86F1-891C50D0753F}|Cybersecurity\\Cybersecurity.csproj|c:\\users\\vladi\\desktop\\cybersecurity\\cybersecurity\\scenarioform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B11833A-EFBF-4A04-86F1-891C50D0753F}|Cybersecurity\\Cybersecurity.csproj|solutionrelative:cybersecurity\\scenarioform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B11833A-EFBF-4A04-86F1-891C50D0753F}|Cybersecurity\\Cybersecurity.csproj|c:\\users\\vladi\\desktop\\cybersecurity\\cybersecurity\\timecalculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B11833A-EFBF-4A04-86F1-891C50D0753F}|Cybersecurity\\Cybersecurity.csproj|solutionrelative:cybersecurity\\timecalculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B11833A-EFBF-4A04-86F1-891C50D0753F}|Cybersecurity\\Cybersecurity.csproj|c:\\users\\vladi\\desktop\\cybersecurity\\cybersecurity\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B11833A-EFBF-4A04-86F1-891C50D0753F}|Cybersecurity\\Cybersecurity.csproj|solutionrelative:cybersecurity\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B11833A-EFBF-4A04-86F1-891C50D0753F}|Cybersecurity\\Cybersecurity.csproj|c:\\users\\vladi\\desktop\\cybersecurity\\cybersecurity\\labvariant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B11833A-EFBF-4A04-86F1-891C50D0753F}|Cybersecurity\\Cybersecurity.csproj|solutionrelative:cybersecurity\\labvariant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B11833A-EFBF-4A04-86F1-891C50D0753F}|Cybersecurity\\Cybersecurity.csproj|C:\\Users\\vladi\\Desktop\\Cybersecurity\\cybersecurity\\scenarioform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{8B11833A-EFBF-4A04-86F1-891C50D0753F}|Cybersecurity\\Cybersecurity.csproj|solutionrelative:cybersecurity\\scenarioform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TimeCalculator.cs",
+              "DocumentMoniker": "C:\\Users\\vladi\\Desktop\\Cybersecurity\\Cybersecurity\\TimeCalculator.cs",
+              "RelativeDocumentMoniker": "Cybersecurity\\TimeCalculator.cs",
+              "ToolTip": "C:\\Users\\vladi\\Desktop\\Cybersecurity\\Cybersecurity\\TimeCalculator.cs",
+              "RelativeToolTip": "Cybersecurity\\TimeCalculator.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T06:06:37.402Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ScenarioManager.cs",
+              "DocumentMoniker": "C:\\Users\\vladi\\Desktop\\Cybersecurity\\Cybersecurity\\ScenarioManager.cs",
+              "RelativeDocumentMoniker": "Cybersecurity\\ScenarioManager.cs",
+              "ToolTip": "C:\\Users\\vladi\\Desktop\\Cybersecurity\\Cybersecurity\\ScenarioManager.cs",
+              "RelativeToolTip": "Cybersecurity\\ScenarioManager.cs",
+              "ViewState": "AgIAAHQAAAAAAAAAAAAAAHwAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T06:06:16.964Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ResultForm.cs",
+              "DocumentMoniker": "C:\\Users\\vladi\\Desktop\\Cybersecurity\\Cybersecurity\\ResultForm.cs",
+              "RelativeDocumentMoniker": "Cybersecurity\\ResultForm.cs",
+              "ToolTip": "C:\\Users\\vladi\\Desktop\\Cybersecurity\\Cybersecurity\\ResultForm.cs",
+              "RelativeToolTip": "Cybersecurity\\ResultForm.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAwwHwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T06:05:02.64Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainForm.cs",
+              "DocumentMoniker": "C:\\Users\\vladi\\Desktop\\Cybersecurity\\Cybersecurity\\MainForm.cs",
+              "RelativeDocumentMoniker": "Cybersecurity\\MainForm.cs",
+              "ToolTip": "C:\\Users\\vladi\\Desktop\\Cybersecurity\\Cybersecurity\\MainForm.cs",
+              "RelativeToolTip": "Cybersecurity\\MainForm.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAvwDsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T06:00:20.161Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ScenarioForm.cs",
+              "DocumentMoniker": "C:\\Users\\vladi\\Desktop\\Cybersecurity\\Cybersecurity\\ScenarioForm.cs",
+              "RelativeDocumentMoniker": "Cybersecurity\\ScenarioForm.cs",
+              "ToolTip": "C:\\Users\\vladi\\Desktop\\Cybersecurity\\Cybersecurity\\ScenarioForm.cs",
+              "RelativeToolTip": "Cybersecurity\\ScenarioForm.cs",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAYwGgAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T05:38:58.474Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "LabVariant.cs",
+              "DocumentMoniker": "C:\\Users\\vladi\\Desktop\\Cybersecurity\\Cybersecurity\\LabVariant.cs",
+              "RelativeDocumentMoniker": "Cybersecurity\\LabVariant.cs",
+              "ToolTip": "C:\\Users\\vladi\\Desktop\\Cybersecurity\\Cybersecurity\\LabVariant.cs",
+              "RelativeToolTip": "Cybersecurity\\LabVariant.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAowAsAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T05:38:10.854Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ScenarioForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\vladi\\Desktop\\Cybersecurity\\Cybersecurity\\ScenarioForm.cs",
+              "RelativeDocumentMoniker": "Cybersecurity\\ScenarioForm.cs",
+              "ToolTip": "C:\\Users\\vladi\\Desktop\\Cybersecurity\\Cybersecurity\\ScenarioForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "Cybersecurity\\ScenarioForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-28T05:35:52.302Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
