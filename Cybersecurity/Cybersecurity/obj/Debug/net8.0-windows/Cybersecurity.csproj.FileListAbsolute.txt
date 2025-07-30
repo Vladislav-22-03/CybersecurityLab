@@ -16,3 +16,4 @@ C:\Users\vladi\Desktop\Cybersecurity\Cybersecurity\obj\Debug\net8.0-windows\ref\
 C:\Users\vladi\Desktop\Cybersecurity\Cybersecurity\obj\Debug\net8.0-windows\Cybersecurity.MainForm.resources
 C:\Users\vladi\Desktop\Cybersecurity\Cybersecurity\obj\Debug\net8.0-windows\Cybersecurity.ScenarioForm.resources
 C:\Users\vladi\Desktop\Cybersecurity\Cybersecurity\obj\Debug\net8.0-windows\Cybersecurity.ResultForm.resources
+C:\Users\vladi\Desktop\Cybersecurity\Cybersecurity\obj\Debug\net8.0-windows\Cybersecurity.StartForm.resources

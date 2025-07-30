@@ -15,6 +15,10 @@ namespace Cybersecurity
         public decimal Budget { get; set; }
         public List<Solution> Solutions { get; set; } = new List<Solution>();
 
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string GroupName { get; set; }
+
         public class Solution
         {
             public string Description { get; set; }

@@ -12,7 +12,7 @@ namespace Cybersecurity
         private PictureBox[] infoIcons = new PictureBox[4];
         private ToolTip toolTip;
         private Button btnNext;
-        private Button btnBack;  // Добавили кнопку Назад
+        private Button btnBack;
 
         private Scenario scenario;
         private int currentStepIndex = 0;
@@ -22,8 +22,8 @@ namespace Cybersecurity
 
         public ScenarioForm(Scenario scenario, Form mainForm)
         {
-            this.scenario = scenario;
-            this.mainForm = mainForm;
+            this.scenario = scenario ?? throw new ArgumentNullException(nameof(scenario));
+            this.mainForm = mainForm ?? throw new ArgumentNullException(nameof(mainForm));
 
             selectedOptionIndices = new int[scenario.Steps.Count];
             for (int i = 0; i < selectedOptionIndices.Length; i++)
@@ -77,28 +77,26 @@ namespace Cybersecurity
                 this.Controls.Add(infoIcons[i]);
             }
 
-            // Кнопка Назад
             btnBack = new Button
             {
                 Text = "Назад",
                 Font = new Font("Segoe UI", 16, FontStyle.Bold),
-                Width = 180,          // ширина увеличена
+                Width = 180,
                 Height = 70,
-                Left = (w / 2) - 190, // сдвинули левее, чтобы место хватало
+                Left = (w / 2) - 190,
                 Top = h - 130,
                 Enabled = false
             };
             btnBack.Click += BtnBack_Click;
             this.Controls.Add(btnBack);
 
-            // Кнопка Далее
             btnNext = new Button
             {
                 Text = "Далее",
                 Font = new Font("Segoe UI", 16, FontStyle.Bold),
-                Width = 180,          // ширина увеличена
+                Width = 180,
                 Height = 70,
-                Left = (w / 2) + 10,  // сдвинули правее
+                Left = (w / 2) + 10,
                 Top = h - 130
             };
             btnNext.Click += BtnNext_Click;
@@ -110,7 +108,7 @@ namespace Cybersecurity
         private void ShowStep()
         {
             var step = scenario.Steps[currentStepIndex];
-            lblQuestion.Text = $"{step.Question}";
+            lblQuestion.Text = step.Question;
 
             for (int i = 0; i < 4; i++)
             {
@@ -131,7 +129,6 @@ namespace Cybersecurity
 
             btnNext.Text = currentStepIndex == scenario.Steps.Count - 1 ? "Завершить" : "Далее";
 
-            // Кнопка Назад доступна, если это не первый шаг
             btnBack.Enabled = currentStepIndex > 0;
         }
 
@@ -183,7 +180,7 @@ namespace Cybersecurity
 
                 results.Add(new ResultItem
                 {
-                    Action = option.Text,
+                    Text = option.Text,               // только название действия
                     Resources = option.Resources,
                     StartTime = startTime,
                     EndTime = endTime,

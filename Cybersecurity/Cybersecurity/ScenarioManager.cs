@@ -150,7 +150,7 @@ namespace Cybersecurity
                                     {
                                         new Option { Text = "Ответственный администратор (4ч, 1000₽)", TimeHours = 4, Cost = 1000, Resources = new List<string> { "Администратор" }, Description = "Назначение одного администратора для наблюдения" },
                                         new Option { Text = "Команда ИБ (2ч, 2500₽)", TimeHours = 2, Cost = 2500, Resources = new List<string> { "Все" }, Description = "Совместный контроль специалистами по информационной безопасности" },
-                                        new Option { Text = "Стажер (6ч, 150₽)", TimeHours = 6, Cost = 150, Resources = new List<string> { "Стажер" }, Consequence = "Высокий риск ошибки", Description = "Контроль за ситуацией со стороны неопытного сотрудника" },
+                                        new Option { Text = "Стажер ", TimeHours = 6, Cost = 150, Resources = new List<string> { "Стажер" }, Consequence = "Высокий риск ошибки", Description = "Контроль за ситуацией со стороны неопытного сотрудника" },
                                         new Option { Text = "Внешняя компания (3ч, 3000₽)", TimeHours = 3, Cost = 3000, Resources = new List<string> { "Подрядчик" }, Description = "Передача контроля сторонней организации" }
                                     }
                                 },

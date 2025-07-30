@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Cybersecurity
@@ -39,7 +39,6 @@ namespace Cybersecurity
             layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
             layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 80));
 
-            // Заголовок с проблемой
             lblProblem = new Label
             {
                 Text = "Проблема: " + problemDescription,
@@ -49,7 +48,6 @@ namespace Cybersecurity
                 ForeColor = Color.DarkRed
             };
 
-            // Таблица
             dgvResults = new DataGridView
             {
                 Dock = DockStyle.Fill,
@@ -60,7 +58,6 @@ namespace Cybersecurity
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect
             };
 
-            // Кнопка закрытия
             btnClose = new Button
             {
                 Text = "Закрыть и вернуться",
@@ -82,7 +79,7 @@ namespace Cybersecurity
         {
             dgvResults.Columns.Clear();
 
-            dgvResults.Columns.Add("Action", "Действие");
+            dgvResults.Columns.Add("Text", "Текст");
             dgvResults.Columns.Add("Resources", "Использованные ресурсы");
             dgvResults.Columns.Add("Duration", "Время на устранение (ч)");
             dgvResults.Columns.Add("StartTime", "Начало");
@@ -92,8 +89,10 @@ namespace Cybersecurity
 
             foreach (var item in results)
             {
+                string cleanText = Regex.Replace(item.Text, @"\s*\(.*?\)", "").Trim();
+
                 dgvResults.Rows.Add(
-                    item.Action,
+                    cleanText,
                     string.Join(", ", item.Resources),
                     item.DurationHours.ToString(),
                     item.StartTime.ToString("g"),
@@ -107,18 +106,23 @@ namespace Cybersecurity
         private void BtnClose_Click(object sender, EventArgs e)
         {
             this.Close();
-            mainForm.Show(); // Показываем главную форму
+            mainForm.Show();
         }
     }
 
     public class ResultItem
     {
-        public string Action { get; set; }
+        public string Text { get; set; }
         public List<string> Resources { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public int DurationHours { get; set; }
         public int Cost { get; set; }
         public string? Consequence { get; set; }
+
+        public ResultItem()
+        {
+            Resources = new List<string>();
+        }
     }
 }
