@@ -34,7 +34,7 @@ namespace Cybersecurity
         {
             centerPanel = new Panel
             {
-                Width = 800,
+                Width = 1000,
                 Height = 600
             };
 
@@ -43,7 +43,7 @@ namespace Cybersecurity
 
             lblTitle = new Label
             {
-                Text = "Лаба по Кибербезопасности",
+                Text = "Лабораторная работа по Кибербезопасности",
                 Font = new Font("Segoe UI", 28, FontStyle.Bold),
                 AutoSize = false,
                 Width = centerPanel.Width,
@@ -59,7 +59,7 @@ namespace Cybersecurity
 
             btnStart = new Button
             {
-                Text = "Начать",
+                Text = "Приступить",
                 Font = new Font("Segoe UI", 16, FontStyle.Bold),
                 Width = 300,
                 Height = 60,
@@ -80,14 +80,24 @@ namespace Cybersecurity
                 Left = (centerPanel.Width - 400) / 2,
                 ForeColor = Color.Gray,
                 Text = placeholder,
-                Tag = false // Пользовательский ввод ещё не начат
+                Tag = false
             };
 
             placeholders[box] = placeholder;
 
-            box.KeyPress += (s, e) =>
+            box.Click += (s, e) =>
             {
-                if ((bool)box.Tag == false && !char.IsControl(e.KeyChar))
+                if ((bool)box.Tag == false)
+                {
+                    box.Text = "";
+                    box.ForeColor = Color.Black;
+                    box.Tag = true;
+                }
+            };
+
+            box.Enter += (s, e) =>
+            {
+                if ((bool)box.Tag == false)
                 {
                     box.Text = "";
                     box.ForeColor = Color.Black;
@@ -134,6 +144,11 @@ namespace Cybersecurity
             this.Hide();
             mainForm.FormClosed += (s, args) => this.Close();
             mainForm.Show();
+        }
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            this.ActiveControl = null;
         }
     }
 }

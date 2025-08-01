@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Cybersecurity
-{
+{ 
     public class LabVariant
     {
         public int Id { get; set; }

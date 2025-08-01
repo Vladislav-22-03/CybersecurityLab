@@ -110,9 +110,65 @@ namespace Cybersecurity
                                     new Option { Text = "Не нужен (0ч, 0₽)", TimeHours = 0, Cost = 0, Resources = new List<string>(), Description = "Отказ от создания отчета" },
                                     new Option { Text = "Сделать через ИИ (1ч, 150₽)", TimeHours = 1, Cost = 150, Resources = new List<string> { "GPT :)" }, Description = "Формирование отчета с помощью искусственного интеллекта" }
                                 }
-                            }
+                            },
+                            new Step
+                            {
+                                Question = "Нужно ли уведомить клиентов о возможной утечке?",
+                                Options = new List<Option>
+                                {
+                                    new Option { Text = "Да, сразу сообщить (2ч, 200₽)", TimeHours = 2, Cost = 200, Resources = new List<string> { "Менеджер" }, Description = "Прозрачность в отношениях с клиентами, снижение репутационных рисков" },
+                                    new Option { Text = "Только ключевых клиентов (1ч, 100₽)", TimeHours = 1, Cost = 100, Resources = new List<string> { "Менеджер" }, Description = "Избирательное уведомление наиболее важных клиентов" },
+                                    new Option { Text = "Подождать результатов анализа (0ч, 0₽)", TimeHours = 0, Cost = 0, Resources = new List<string>(), Consequence = "Клиенты могут узнать сами", Description = "Риск потери доверия при утечке информации" },
+                                    new Option { Text = "Не сообщать (0ч, 0₽)", TimeHours = 0, Cost = 0, Resources = new List<string>(), Consequence = "Репутационные потери", Description = "Попытка скрыть инцидент" }
+                                }
+                            },
+                            new Step
+                            {
+                                Question = "Как укрепить защиту на будущее?",
+                                Options = new List<Option>
+                                {
+                                    new Option { Text = "Внедрить IDS/IPS (5ч, 3000₽)", TimeHours = 5, Cost = 3000, Resources = new List<string> { "Сисадмин", "ИБ-специалист" }, Description = "Системы обнаружения и предотвращения атак" },
+                                    new Option { Text = "Обновить политики безопасности (2ч, 800₽)", TimeHours = 2, Cost = 800, Resources = new List<string> { "Менеджер", "ИБ-специалист" }, Description = "Обновление регламентов и инструкций" },
+                                    new Option { Text = "Провести тренинг (3ч, 1500₽)", TimeHours = 3, Cost = 1500, Resources = new List<string> { "Менеджер" }, Description = "Обучение сотрудников правилам ИБ" },
+                                    new Option { Text = "Ничего не менять (0ч, 0₽)", TimeHours = 0, Cost = 0, Resources = new List<string>(), Consequence = "Риск повторения", Description = "Отказ от мер по усилению защиты" }
+                                }
+                            },
+                            new Step
+                            {
+                                Question = "Кто будет контролировать ситуацию в течение недели?",
+                                Options = new List<Option>
+                                {
+                                    new Option { Text = "Назначить ответственного (1ч, 300₽)", TimeHours = 1, Cost = 300, Resources = new List<string> { "Менеджер" }, Description = "Выделение человека для мониторинга состояния" },
+                                    new Option { Text = "Использовать автоматический мониторинг (2ч, 600₽)", TimeHours = 2, Cost = 600, Resources = new List<string> { "Сканер" }, Description = "Настройка автоматических уведомлений и логирования" },
+                                    new Option { Text = "Передать контроль на аутсорс (1ч, 1000₽)", TimeHours = 1, Cost = 1000, Resources = new List<string> { "Подрядчик" }, Description = "Использование услуг внешней ИБ-компании" },
+                                    new Option { Text = "Никто не будет контролировать (0ч, 0₽)", TimeHours = 0, Cost = 0, Resources = new List<string>(), Consequence = "Угрозы останутся незамеченными", Description = "Игнорирование постинцидентного мониторинга" }
+                                }
+                            },
+                            new Step
+                            {
+                                Question = "Следует ли инициировать внутренний аудит ИБ?",
+                                Options = new List<Option>
+                                {
+                                    new Option { Text = "Да, срочный аудит (4ч, 2500₽)", TimeHours = 4, Cost = 2500, Resources = new List<string> { "ИБ-специалист", "Менеджер" }, Description = "Полная проверка текущего состояния безопасности" },
+                                    new Option { Text = "Плановый аудит позже (0ч, 0₽)", TimeHours = 0, Cost = 0, Resources = new List<string>(), Description = "Аудит будет проведён в будущем согласно графику" },
+                                    new Option { Text = "Поручить внешний аудит (3ч, 4000₽)", TimeHours = 3, Cost = 4000, Resources = new List<string> { "Подрядчик" }, Description = "Независимая оценка уровня защищенности" },
+                                    new Option { Text = "Не проводить аудит (0ч, 0₽)", TimeHours = 0, Cost = 0, Resources = new List<string>(), Consequence = "Могут остаться уязвимости", Description = "Отказ от анализа текущих слабых мест" }
+                                }
+                            },
+                            new Step
+                            {
+                                Question = "Каким образом хранить артефакты инцидента?",
+                                Options = new List<Option>
+                                {
+                                    new Option { Text = "Сохранить в зашифрованном архиве (1ч, 200₽)", TimeHours = 1, Cost = 200, Resources = new List<string> { "ИБ-специалист" }, Description = "Безопасное хранение данных для возможного расследования" },
+                                    new Option { Text = "Отправить в CERT (2ч, 500₽)", TimeHours = 2, Cost = 500, Resources = new List<string> { "Менеджер" }, Description = "Передача материалов в национальный центр реагирования" },
+                                    new Option { Text = "Удалить после отчёта (0ч, 0₽)", TimeHours = 0, Cost = 0, Resources = new List<string>(), Consequence = "Невозможность последующего анализа", Description = "Удаление после завершения расследования" },
+                                    new Option { Text = "Хранить на сервере без защиты (0ч, 0₽)", TimeHours = 0, Cost = 0, Resources = new List<string>(), Consequence = "Риск компрометации", Description = "Небезопасное хранение артефактов инцидента" }
+                                }
+                            },
+
                         }
-                     };
+                    };
                 case 1:
                     return new Scenario
                     {
@@ -150,7 +206,7 @@ namespace Cybersecurity
                                     {
                                         new Option { Text = "Ответственный администратор (4ч, 1000₽)", TimeHours = 4, Cost = 1000, Resources = new List<string> { "Администратор" }, Description = "Назначение одного администратора для наблюдения" },
                                         new Option { Text = "Команда ИБ (2ч, 2500₽)", TimeHours = 2, Cost = 2500, Resources = new List<string> { "Все" }, Description = "Совместный контроль специалистами по информационной безопасности" },
-                                        new Option { Text = "Стажер ", TimeHours = 6, Cost = 150, Resources = new List<string> { "Стажер" }, Consequence = "Высокий риск ошибки", Description = "Контроль за ситуацией со стороны неопытного сотрудника" },
+                                        new Option { Text = "Стажер (6ч, 150₽)", TimeHours = 6, Cost = 150, Resources = new List<string> { "Стажер" }, Consequence = "Высокий риск ошибки", Description = "Контроль за ситуацией со стороны неопытного сотрудника" },
                                         new Option { Text = "Внешняя компания (3ч, 3000₽)", TimeHours = 3, Cost = 3000, Resources = new List<string> { "Подрядчик" }, Description = "Передача контроля сторонней организации" }
                                     }
                                 },
@@ -175,7 +231,63 @@ namespace Cybersecurity
                                         new Option { Text = "Отказаться от отчета (0ч, 0₽)", TimeHours = 0, Cost = 0, Resources = new List<string>(), Description = "Не составлять документ по результатам инцидента" },
                                         new Option { Text = "Сделать с помощью ИИ (1ч, 200₽)", TimeHours = 1, Cost = 200, Resources = new List<string> { "GPT :)" }, Description = "Автоматическая генерация отчета нейросетью" }
                                     }
+                                },
+                                new Step
+                                {
+                                    Question = "Следует ли уведомить руководство о результатах расследования?",
+                                    Options = new List<Option>
+                                    {
+                                        new Option { Text = "Да, с подробностями (2ч, 500₽)", TimeHours = 2, Cost = 500, Resources = new List<string> { "Менеджер" }, Description = "Информирование руководства с анализом последствий и рекомендациями" },
+                                        new Option { Text = "Краткое уведомление (1ч, 200₽)", TimeHours = 1, Cost = 200, Resources = new List<string> { "Стажер" }, Description = "Минимальный отчёт без технических деталей" },
+                                        new Option { Text = "Сообщить только при повторении инцидента (0ч, 0₽)", TimeHours = 0, Cost = 0, Resources = new List<string>(), Consequence = "Руководство может быть неготово", Description = "Задержка в коммуникации может создать риски" },
+                                        new Option { Text = "Не сообщать (0ч, 0₽)", TimeHours = 0, Cost = 0, Resources = new List<string>(), Consequence = "Нарушение внутреннего регламента", Description = "Утаивание инцидента от руководства" }
+                                    }
+                                },
+                                new Step
+                                {
+                                    Question = "Нужно ли информировать сотрудников?",
+                                    Options = new List<Option>
+                                    {
+                                        new Option { Text = "Да, провести инструктаж (2ч, 1000₽)", TimeHours = 2, Cost = 1000, Resources = new List<string> { "Менеджер", "ИБ-специалист" }, Description = "Повышение осведомленности среди персонала" },
+                                        new Option { Text = "Отправить памятку по почте (1ч, 200₽)", TimeHours = 1, Cost = 200, Resources = new List<string> { "Стажер" }, Description = "Рассылка информационных рекомендаций" },
+                                        new Option { Text = "Обучение только ИТ-персонала (2ч, 800₽)", TimeHours = 2, Cost = 800, Resources = new List<string> { "Сисадмин" }, Description = "Углублённое обучение технических сотрудников" },
+                                        new Option { Text = "Не информировать (0ч, 0₽)", TimeHours = 0, Cost = 0, Resources = new List<string>(), Consequence = "Сотрудники могут повторно подключать неразрешённые устройства", Description = "Риск несанкционированных действий в будущем" }
+                                    }
+                                },
+                                new Step
+                                {
+                                    Question = "Что делать с логами событий?",
+                                    Options = new List<Option>
+                                    {
+                                        new Option { Text = "Сохранить и архивировать (1ч, 300₽)", TimeHours = 1, Cost = 300, Resources = new List<string> { "ИБ-специалист" }, Description = "Хранение логов для последующего анализа" },
+                                        new Option { Text = "Передать внешним экспертам (2ч, 800₽)", TimeHours = 2, Cost = 800, Resources = new List<string> { "Подрядчик" }, Description = "Отправка логов на внешний аудит" },
+                                        new Option { Text = "Удалить после анализа (0ч, 0₽)", TimeHours = 0, Cost = 0, Resources = new List<string>(), Consequence = "Утеря доказательств", Description = "Лишение возможности провести повторную экспертизу" },
+                                        new Option { Text = "Оставить без изменений (0ч, 0₽)", TimeHours = 0, Cost = 0, Resources = new List<string>(), Consequence = "Нарушение требований хранения", Description = "Несоблюдение регламентов по логированию" }
+                                    }
+                                },
+                                new Step
+                                {
+                                    Question = "Стоит ли внедрить систему контроля доступа к сети?",
+                                    Options = new List<Option>
+                                    {
+                                        new Option { Text = "Да, NAC-система (5ч, 3000₽)", TimeHours = 5, Cost = 3000, Resources = new List<string> { "ИБ-специалист", "Сетевой администратор" }, Description = "Настройка системы контроля доступа к сети (Network Access Control)" },
+                                        new Option { Text = "Только MAC-фильтрация (2ч, 500₽)", TimeHours = 2, Cost = 500, Resources = new List<string> { "Сетевой администратор" }, Description = "Ограничение доступа по MAC-адресам" },
+                                        new Option { Text = "Ограничить доступ через DHCP (1ч, 300₽)", TimeHours = 1, Cost = 300, Resources = new List<string> { "Сисадмин" }, Description = "Фильтрация клиентов по IP и разрешениям DHCP" },
+                                        new Option { Text = "Не внедрять (0ч, 0₽)", TimeHours = 0, Cost = 0, Resources = new List<string>(), Consequence = "Уязвимость к новым подключениям", Description = "Отсутствие дополнительных мер доступа" }
+                                    }
+                                },
+                                new Step
+                                {
+                                    Question = "Как действовать в случае повторного подключения?",
+                                    Options = new List<Option>
+                                    {
+                                        new Option { Text = "Блокировать по MAC-адресу (1ч, 200₽)", TimeHours = 1, Cost = 200, Resources = new List<string> { "Сетевой администратор" }, Description = "Быстрое отключение конкретного устройства по его адресу" },
+                                        new Option { Text = "Отслеживать и записывать активность (3ч, 800₽)", TimeHours = 3, Cost = 800, Resources = new List<string> { "ИБ-специалист" }, Description = "Мониторинг действий для последующего расследования" },
+                                        new Option { Text = "Сообщить в правоохранительные органы (5ч, 0₽)", TimeHours = 5, Cost = 0, Resources = new List<string> { "Менеджер" }, Description = "Официальное реагирование на инцидент внешними структурами" },
+                                        new Option { Text = "Не реагировать (0ч, 0₽)", TimeHours = 0, Cost = 0, Resources = new List<string>(), Consequence = "Повторный взлом возможен", Description = "Игнорирование угрозы" }
+                                    }
                                 }
+
                             }
                     };
                 default:
