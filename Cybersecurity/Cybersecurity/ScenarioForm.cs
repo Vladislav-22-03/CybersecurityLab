@@ -180,7 +180,7 @@ namespace Cybersecurity
 
                 results.Add(new ResultItem
                 {
-                    Text = option.Text,               // только название действия
+                    Text = option.Text,              
                     Resources = option.Resources,
                     StartTime = startTime,
                     EndTime = endTime,

@@ -58,11 +58,9 @@ namespace Cybersecurity
             {
                 Scenario scenario = ScenarioManager.GetScenario(variantId);
 
-                // Передаем ссылку на текущую форму в ScenarioForm
                 ScenarioForm form = new ScenarioForm(scenario, this);
                 form.Show();
 
-                // Скрываем текущую форму
                 this.Hide();
             }
         }
