@@ -140,7 +140,7 @@ namespace Cybersecurity
                 return;
             }
 
-            var mainForm = new MainForm();
+            var mainForm = new CentralForm();
             this.Hide();
             mainForm.FormClosed += (s, args) => this.Close();
             mainForm.Show();

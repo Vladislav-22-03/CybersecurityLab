@@ -1,0 +1,2 @@
+C:\Users\vladi\Desktop\Cybersecurity\Cybersecurity\bin\Release\net8.0-windows\win-x64\publish\Cybersecurity.pdb
+C:\Users\vladi\Desktop\Cybersecurity\Cybersecurity\bin\Release\net8.0-windows\win-x64\publish\Cybersecurity.exe

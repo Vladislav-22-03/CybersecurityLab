@@ -5,8 +5,11 @@ namespace Cybersecurity
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        private CentralForm centralForm;
+
+        public MainForm(CentralForm parentForm)
         {
+            centralForm = parentForm;
             this.Text = "Кибербезопасность – Выбор варианта";
             this.WindowState = FormWindowState.Maximized;
             this.Load += MainForm_Load;
@@ -58,7 +61,8 @@ namespace Cybersecurity
             {
                 Scenario scenario = ScenarioManager.GetScenario(variantId);
 
-                ScenarioForm form = new ScenarioForm(scenario, this);
+                // Передаем ссылку на CentralForm вместо MainForm
+                ScenarioForm form = new ScenarioForm(scenario, centralForm);
                 form.Show();
 
                 this.Hide();

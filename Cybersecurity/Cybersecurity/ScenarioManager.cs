@@ -53,7 +53,7 @@ namespace Cybersecurity
                     {
                         VariantId = 0,
                         Incident = "На сервер поступает подозрительный трафик.",
-                        StartTime = new DateTime(2025, 7, 25, 10, 0, 0),
+                        StartTime = DateTime.Today.AddHours(8),
                         Steps = new List<Step>
                         {
                         new Step
@@ -163,7 +163,7 @@ namespace Cybersecurity
                     {
                         VariantId = 1,
                         Incident = "Обнаружено несанкционированное подключение к сети.",
-                        StartTime = new DateTime(2025, 7, 25, 10, 0, 0),
+                        StartTime = DateTime.Today.AddHours(8),
                         Steps = new List<Step>
                             {
                                 new Step
@@ -295,7 +295,7 @@ namespace Cybersecurity
                     {
                         VariantId = 2,
                         Incident = "Обнаружена подозрительная активность в учетной записи сотрудника.",
-                        StartTime = new DateTime(2025, 8, 6, 9, 0, 0),
+                        StartTime = DateTime.Today.AddHours(8),
                         Steps = new List<Step>
                         {
                             new Step
@@ -415,7 +415,7 @@ namespace Cybersecurity
                     {
                         VariantId = 3,
                         Incident = "На сервере базы данных зафиксированы следы внешнего вмешательства.",
-                        StartTime = new DateTime(2025, 8, 6, 10, 0, 0),
+                        StartTime = DateTime.Today.AddHours(8),
                         Steps = new List<Step>
                         {
                             new Step
@@ -491,7 +491,7 @@ namespace Cybersecurity
                     {
                         VariantId = 4,
                         Incident = "Обнаружена подозрительная активность на рабочей станции сотрудника",
-                        StartTime = new DateTime(2025, 7, 25, 10, 0, 0),
+                        StartTime = DateTime.Today.AddHours(8),
                         Steps = new List<Step>
                         {
                             new Step
@@ -612,7 +612,7 @@ namespace Cybersecurity
                     {
                         VariantId = 5,
                         Incident = "Критическое оборудование в дата-центре вышло из строя, что угрожает непрерывности бизнес-процессов.",
-                        StartTime = new DateTime(2025, 8, 6, 9, 0, 0),
+                        StartTime = DateTime.Today.AddHours(8),
                         Steps = new List<Step>
                         {
                             new Step
@@ -732,7 +732,7 @@ namespace Cybersecurity
                     {
                         VariantId = 6,
                         Incident = "Сотрудник случайно отправил внутренний документ внешнему получателю.",
-                        StartTime = new DateTime(2025, 8, 6, 11, 0, 0),
+                        StartTime = DateTime.Today.AddHours(8),
                         Steps = new List<Step>
                         {
                             new Step
@@ -852,7 +852,7 @@ namespace Cybersecurity
                     {
                         VariantId = 7,
                         Incident = "Обнаружено вредоносное ПО на рабочем компьютере сотрудника.",
-                        StartTime = new DateTime(2025, 8, 6, 13, 0, 0),
+                        StartTime = DateTime.Today.AddHours(8),
                         Steps = new List<Step>
                         {
                             new Step
@@ -972,7 +972,7 @@ namespace Cybersecurity
                     {
                         VariantId = 8,
                         Incident = "В дата-центре произошло отключение системы охлаждения, что угрожает перегревом критического оборудования.",
-                        StartTime = new DateTime(2025, 8, 7, 14, 0, 0),
+                        StartTime = DateTime.Today.AddHours(8),
                         Steps = new List<Step>
                         {
                             new Step
@@ -1092,7 +1092,7 @@ namespace Cybersecurity
                     {
                         VariantId = 9,
                         Incident = "На корпоративный веб-сервис началась масштабная DDoS-атака, из-за которой сайт недоступен для клиентов.",
-                        StartTime = new DateTime(2025, 8, 6, 15, 0, 0),
+                        StartTime = DateTime.Today.AddHours(8),
                         Steps = new List<Step>
                         {
                             new Step
@@ -1212,7 +1212,7 @@ namespace Cybersecurity
                     {
                         VariantId = 10,
                         Incident = "В корпоративной сети обнаружено массовое распространение шифровальщика, блокирующего файлы сотрудников.",
-                        StartTime = new DateTime(2025, 8, 11, 11, 0, 0),
+                        StartTime = DateTime.Today.AddHours(8),
                         Steps = new List<Step>
                         {
                             new Step
@@ -1332,7 +1332,7 @@ namespace Cybersecurity
                     {
                         VariantId = 11,
                         Incident = "На сервере веб-приложения обнаружена утечка конфиденциальных данных из-за эксплуатация уязвимости в коде.",
-                        StartTime = new DateTime(2025, 8, 11, 15, 0, 0),
+                        StartTime = DateTime.Today.AddHours(8),
                         Steps = new List<Step>
                         {
                             new Step
@@ -1452,7 +1452,7 @@ namespace Cybersecurity
                     {
                         VariantId = 12,
                         Incident = "На корпоративный веб-сайт идёт массированная DDoS-атака, из-за чего ресурс недоступен для клиентов.",
-                        StartTime = new DateTime(2025, 8, 11, 17, 0, 0),
+                        StartTime = DateTime.Today.AddHours(8),
                         Steps = new List<Step>
                         {
                             new Step
@@ -1572,7 +1572,7 @@ namespace Cybersecurity
                     {
                         VariantId = 13,
                         Incident = "На сервере базы данных обнаружено вредоносное ПО, что угрожает целостности и конфиденциальности информации.",
-                        StartTime = new DateTime(2025, 8, 11, 18, 00, 0),
+                        StartTime = DateTime.Today.AddHours(8),
                         Steps = new List<Step>
                         {
                             new Step
@@ -1692,7 +1692,7 @@ namespace Cybersecurity
                     {
                         VariantId = 14,
                         Incident = "Обнаружена утечка конфиденциальных данных из внутренней сети организации.",
-                        StartTime = new DateTime(2025, 8, 12, 9, 0, 0),
+                        StartTime = DateTime.Today.AddHours(8),
                         Steps = new List<Step>
                         {
                             new Step

@@ -18,12 +18,12 @@ namespace Cybersecurity
         private int currentStepIndex = 0;
         private int[] selectedOptionIndices;
 
-        private Form mainForm;
+        private CentralForm centralForm;
 
-        public ScenarioForm(Scenario scenario, Form mainForm)
+        public ScenarioForm(Scenario scenario, CentralForm centralForm)
         {
             this.scenario = scenario ?? throw new ArgumentNullException(nameof(scenario));
-            this.mainForm = mainForm ?? throw new ArgumentNullException(nameof(mainForm));
+            this.centralForm = centralForm ?? throw new ArgumentNullException(nameof(centralForm));
 
             selectedOptionIndices = new int[scenario.Steps.Count];
             for (int i = 0; i < selectedOptionIndices.Length; i++)
@@ -116,7 +116,6 @@ namespace Cybersecurity
                 radioOptions[i].Checked = (selectedOptionIndices[currentStepIndex] == i);
 
                 Size textSize = TextRenderer.MeasureText(radioOptions[i].Text, radioOptions[i].Font);
-
                 radioOptions[i].Width = textSize.Width + 10;
                 radioOptions[i].Height = textSize.Height + 10;
 
@@ -128,7 +127,6 @@ namespace Cybersecurity
             }
 
             btnNext.Text = currentStepIndex == scenario.Steps.Count - 1 ? "Завершить" : "Далее";
-
             btnBack.Enabled = currentStepIndex > 0;
         }
 
@@ -165,6 +163,9 @@ namespace Cybersecurity
 
         private void ShowResult()
         {
+            // Установить текущий сценарий в CentralForm
+            this.centralForm.SetCurrentScenario(this.scenario);
+
             var results = new List<ResultItem>();
             DateTime currentTime = MoveToNextWorkingTime(scenario.StartTime);
 
@@ -176,15 +177,13 @@ namespace Cybersecurity
                 DateTime startTime = currentTime;
                 DateTime endTime = AddWorkingHours(currentTime, hoursToAdd);
 
-                int duration = option.TimeHours;
-
                 results.Add(new ResultItem
                 {
-                    Text = option.Text,              
+                    Text = option.Text,
                     Resources = option.Resources,
                     StartTime = startTime,
                     EndTime = endTime,
-                    DurationHours = duration,
+                    DurationHours = option.TimeHours,
                     Cost = option.Cost,
                     Consequence = option.Consequence
                 });
@@ -192,16 +191,21 @@ namespace Cybersecurity
                 currentTime = endTime;
             }
 
-            var resultForm = new ResultForm(results, scenario.Incident, this.mainForm);
+            var resultForm = new ResultForm(results, scenario.Incident, this.centralForm, (updatedResults) =>
+            {
+                this.centralForm.UpdateResults(updatedResults);
+            });
+
             resultForm.FormClosed += (s, e) =>
             {
-                this.mainForm.Show();
+                this.centralForm.Show();
                 this.Close();
             };
 
             resultForm.Show();
             this.Hide();
         }
+
 
         private DateTime MoveToNextWorkingTime(DateTime time)
         {
@@ -211,21 +215,11 @@ namespace Cybersecurity
             }
 
             if (time.Hour < 8)
-            {
                 time = time.Date.AddHours(8);
-            }
-            else if (time.Hour >= 17 || (time.Hour == 16 && time.Minute > 0))
-            {
+            else if (time.Hour >= 17)
                 time = time.AddDays(1).Date.AddHours(8);
-                while (time.DayOfWeek == DayOfWeek.Saturday || time.DayOfWeek == DayOfWeek.Sunday)
-                {
-                    time = time.AddDays(1);
-                }
-            }
             else if (time.Hour >= 12 && time.Hour < 13)
-            {
                 time = time.Date.AddHours(13);
-            }
 
             return time;
         }
@@ -238,53 +232,40 @@ namespace Cybersecurity
             while (hoursLeft > 0)
             {
                 while (current.DayOfWeek == DayOfWeek.Saturday || current.DayOfWeek == DayOfWeek.Sunday)
-                {
                     current = current.AddDays(1).Date.AddHours(8);
-                }
 
-                DateTime workStartMorning = current.Date.AddHours(8);
-                DateTime workEndMorning = current.Date.AddHours(12);
-                DateTime workStartAfternoon = current.Date.AddHours(13);
-                DateTime workEndAfternoon = current.Date.AddHours(17);
+                DateTime morningStart = current.Date.AddHours(8);
+                DateTime morningEnd = current.Date.AddHours(12);
+                DateTime afternoonStart = current.Date.AddHours(13);
+                DateTime afternoonEnd = current.Date.AddHours(17);
 
-                if (current < workStartMorning)
-                {
-                    current = workStartMorning;
-                }
+                if (current < morningStart)
+                    current = morningStart;
 
-                if (current >= workEndAfternoon)
+                if (current >= afternoonEnd)
                 {
                     current = current.AddDays(1).Date.AddHours(8);
                     continue;
                 }
 
-                if (current >= workStartMorning && current < workEndMorning)
-                {
-                    int availableHours = (int)(workEndMorning - current).TotalHours;
-                    int hoursToWork = Math.Min(availableHours, hoursLeft);
-                    current = current.AddHours(hoursToWork);
-                    hoursLeft -= hoursToWork;
-
-                    if (hoursLeft > 0 && current == workEndMorning)
-                    {
-                        current = current.Date.AddHours(13);
-                    }
-                }
-                else if (current >= workStartAfternoon && current < workEndAfternoon)
-                {
-                    int availableHours = (int)(workEndAfternoon - current).TotalHours;
-                    int hoursToWork = Math.Min(availableHours, hoursLeft);
-                    current = current.AddHours(hoursToWork);
-                    hoursLeft -= hoursToWork;
-                }
-                else if (current >= workEndMorning && current < workStartAfternoon)
-                {
-                    current = current.Date.AddHours(13);
-                }
+                DateTime periodEnd;
+                if (current < morningEnd)
+                    periodEnd = morningEnd;
+                else if (current >= afternoonStart)
+                    periodEnd = afternoonEnd;
                 else
-                {
-                    current = current.Date.AddDays(1).AddHours(8);
-                }
+                    periodEnd = afternoonStart;
+
+                int availableHours = (int)(periodEnd - current).TotalHours;
+                int hoursToWork = Math.Min(availableHours, hoursLeft);
+
+                current = current.AddHours(hoursToWork);
+                hoursLeft -= hoursToWork;
+
+                if (current == morningEnd)
+                    current = afternoonStart;
+                else if (current == afternoonEnd)
+                    current = current.AddDays(1).Date.AddHours(8);
             }
 
             return current;
@@ -292,7 +273,7 @@ namespace Cybersecurity
 
         private void ScenarioForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            mainForm.Show();
+            centralForm.Show();
         }
     }
 }

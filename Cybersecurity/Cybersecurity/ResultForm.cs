@@ -12,17 +12,21 @@ namespace Cybersecurity
         private DataGridView dgvResults;
         private Button btnClose;
         private Form mainForm;
+        private Action<List<ResultItem>> updateCallback;
+        private List<ResultItem> results;
 
-        public ResultForm(List<ResultItem> results, string problemDescription, Form mainForm)
+        public ResultForm(List<ResultItem> results, string problemDescription, Form mainForm, Action<List<ResultItem>> updateCallback)
         {
             this.mainForm = mainForm ?? throw new ArgumentNullException(nameof(mainForm));
+            this.updateCallback = updateCallback ?? throw new ArgumentNullException(nameof(updateCallback));
+            this.results = new List<ResultItem>(results);
 
             this.Text = "Итоговые результаты";
             this.WindowState = FormWindowState.Maximized;
             this.BackColor = Color.White;
 
             InitializeComponents(problemDescription);
-            InitializeGrid(results);
+            InitializeGrid(this.results);
         }
 
         private void InitializeComponents(string problemDescription)
@@ -79,7 +83,7 @@ namespace Cybersecurity
         {
             dgvResults.Columns.Clear();
 
-            dgvResults.Columns.Add("Text", "Текст");
+            dgvResults.Columns.Add("Text", "Ответы");
             dgvResults.Columns.Add("Resources", "Использованные ресурсы");
             dgvResults.Columns.Add("Duration", "Время на устранение (ч)");
             dgvResults.Columns.Add("StartTime", "Начало");
@@ -94,10 +98,10 @@ namespace Cybersecurity
                 dgvResults.Rows.Add(
                     cleanText,
                     string.Join(", ", item.Resources),
-                    item.DurationHours.ToString(),
+                    item.DurationHours,
                     item.StartTime.ToString("g"),
                     item.EndTime.ToString("g"),
-                    item.Cost.ToString(),
+                    item.Cost,
                     item.Consequence ?? "-"
                 );
             }
@@ -105,6 +109,8 @@ namespace Cybersecurity
 
         private void BtnClose_Click(object sender, EventArgs e)
         {
+            // Передаем результаты обратно в CentralForm
+            updateCallback(results);
             this.Close();
             mainForm.Show();
         }
