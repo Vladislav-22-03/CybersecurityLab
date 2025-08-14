@@ -479,3 +479,4 @@ C:\Users\vladi\Desktop\Cybersecurity\Cybersecurity\obj\Debug\net8.0-windows\win-
 C:\Users\vladi\Desktop\Cybersecurity\Cybersecurity\obj\Debug\net8.0-windows\win-x64\ref\Cybersecurity.dll
 C:\Users\vladi\Desktop\Cybersecurity\Cybersecurity\obj\Debug\net8.0-windows\win-x64\Cybersecurity.CentralForm.resources
 C:\Users\vladi\Desktop\Cybersecurity\Cybersecurity\obj\Debug\net8.0-windows\win-x64\Cybersecurity.CalendarForm.resources
+C:\Users\vladi\Desktop\Cybersecurity\Cybersecurity\obj\Debug\net8.0-windows\win-x64\Cybersecurity.TableForm.resources

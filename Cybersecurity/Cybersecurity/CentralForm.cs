@@ -10,12 +10,10 @@ namespace Cybersecurity
         private Button selectVariantButton;
         private Button resultsButton;
         private Button calendarButton;
-        private DataGridView dgvResults;
+        private Button tableButton;
+        private DataGridView dgvCentralTable;
 
-        // Список результатов для передачи между формами
         private List<ResultItem> currentResults = new List<ResultItem>();
-
-        // Ссылка на текущий выбранный сценарий
         private Scenario currentScenario;
 
         public CentralForm()
@@ -25,7 +23,6 @@ namespace Cybersecurity
             this.StartPosition = FormStartPosition.CenterScreen;
             this.BackColor = Color.White;
 
-            // Заголовок
             Label titleLabel = new Label
             {
                 Text = "Кибербезопасность",
@@ -33,24 +30,6 @@ namespace Cybersecurity
                 TextAlign = ContentAlignment.MiddleCenter,
                 Dock = DockStyle.Top,
                 Height = 100
-            };
-
-            // Основной контейнер
-            TableLayoutPanel mainLayout = new TableLayoutPanel
-            {
-                Dock = DockStyle.Fill,
-                ColumnCount = 2
-            };
-            mainLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 450));
-            mainLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
-
-            // Левая панель с кнопками
-            FlowLayoutPanel buttonPanel = new FlowLayoutPanel
-            {
-                Dock = DockStyle.Fill,
-                FlowDirection = FlowDirection.TopDown,
-                Padding = new Padding(20),
-                AutoScroll = true
             };
 
             selectVariantButton = CreateButton("Выбрать вариант");
@@ -64,24 +43,63 @@ namespace Cybersecurity
             calendarButton.Enabled = false;
             calendarButton.Click += CalendarButton_Click;
 
+            tableButton = CreateButton("Таблица");
+            tableButton.Enabled = false;
+            tableButton.Click += TableButton_Click;
+
+            FlowLayoutPanel buttonPanel = new FlowLayoutPanel
+            {
+                FlowDirection = FlowDirection.LeftToRight,
+                AutoSize = true,
+                WrapContents = false,
+                Padding = new Padding(0),
+                Margin = new Padding(0)
+            };
             buttonPanel.Controls.Add(selectVariantButton);
             buttonPanel.Controls.Add(resultsButton);
             buttonPanel.Controls.Add(calendarButton);
+            buttonPanel.Controls.Add(tableButton);
 
-            // Правая панель с таблицей
-            dgvResults = new DataGridView
+            Panel buttonContainer = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = selectVariantButton.Height + 20
+            };
+            buttonContainer.Controls.Add(buttonPanel);
+
+            buttonContainer.Resize += (s, e) =>
+            {
+                buttonPanel.Left = (buttonContainer.Width - buttonPanel.Width) / 2;
+                buttonPanel.Top = (buttonContainer.Height - buttonPanel.Height) / 2;
+            };
+
+            dgvCentralTable = new DataGridView
             {
                 Dock = DockStyle.Fill,
                 ReadOnly = true,
                 AllowUserToAddRows = false,
                 AllowUserToDeleteRows = false,
-                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
-                SelectionMode = DataGridViewSelectionMode.FullRowSelect
+                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None, // фиксированная ширина
+                RowHeadersVisible = false,
+                Font = new Font("Arial", 12),
+                SelectionMode = DataGridViewSelectionMode.CellSelect
             };
-            InitResultsGrid();
 
-            mainLayout.Controls.Add(buttonPanel, 0, 0);
-            mainLayout.Controls.Add(dgvResults, 1, 0);
+            dgvCentralTable.DefaultCellStyle.SelectionBackColor = Color.Transparent;
+            dgvCentralTable.DefaultCellStyle.SelectionForeColor = Color.Black;
+
+            InitCentralTable();
+
+            TableLayoutPanel mainLayout = new TableLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                RowCount = 2
+            };
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
+
+            mainLayout.Controls.Add(buttonContainer, 0, 0);
+            mainLayout.Controls.Add(dgvCentralTable, 0, 1);
 
             this.Controls.Add(mainLayout);
             this.Controls.Add(titleLabel);
@@ -92,64 +110,77 @@ namespace Cybersecurity
             return new Button
             {
                 Text = text,
-                Font = new Font("Arial", 20, FontStyle.Bold),
-                Size = new Size(380, 100),
+                Font = new Font("Arial", 16, FontStyle.Bold),
+                Size = new Size(180, 60),
                 BackColor = Color.LightGray,
-                Margin = new Padding(20)
+                Margin = new Padding(10)
             };
         }
 
-        private void InitResultsGrid()
+        private void InitCentralTable()
         {
-            dgvResults.Columns.Clear();
+            dgvCentralTable.Columns.Clear();
+            dgvCentralTable.Rows.Clear();
 
-            var textColumn = new DataGridViewTextBoxColumn { Name = "Text", HeaderText = "Ответы" };
-            var resourcesColumn = new DataGridViewTextBoxColumn { Name = "Resources", HeaderText = "Использованные ресурсы" };
-            var durationColumn = new DataGridViewTextBoxColumn { Name = "Duration", HeaderText = "Время (ч)" };
-            var startTimeColumn = new DataGridViewTextBoxColumn { Name = "StartTime", HeaderText = "Начало" };
-            var endTimeColumn = new DataGridViewTextBoxColumn { Name = "EndTime", HeaderText = "Завершение" };
-            var costColumn = new DataGridViewTextBoxColumn { Name = "Cost", HeaderText = "Стоимость" };
-            var consequenceColumn = new DataGridViewTextBoxColumn { Name = "Consequence", HeaderText = "Последствия" };
+            dgvCentralTable.DefaultCellStyle.WrapMode = DataGridViewTriState.True; // перенос текста в ячейках
+            dgvCentralTable.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True; // перенос текста в заголовках
+            dgvCentralTable.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells; // авто-высота строк
+            dgvCentralTable.RowTemplate.Height = 40;
 
-            dgvResults.Columns.AddRange(new DataGridViewColumn[]
-            {
-                textColumn,
-                resourcesColumn,
-                durationColumn,
-                startTimeColumn,
-                endTimeColumn,
-                costColumn,
-                consequenceColumn
-            });
-
-            textColumn.FillWeight = 200;
-            resourcesColumn.FillWeight = 150;
-            durationColumn.FillWeight = 70;
-            startTimeColumn.FillWeight = 90;
-            endTimeColumn.FillWeight = 90;
-            costColumn.FillWeight = 70;
-            consequenceColumn.FillWeight = 100;
-
-            dgvResults.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvCentralTable.CurrentCell = null;
         }
 
-        private void RefreshResultsGrid()
+        public void UpdateResults(List<ResultItem> results)
         {
-            dgvResults.Rows.Clear();
-            foreach (var item in currentResults)
+            dgvCentralTable.Rows.Clear();
+            dgvCentralTable.Columns.Clear();
+
+            int columnCount = results.Count;
+
+            // Добавляем колонки
+            for (int i = 0; i < columnCount; i++)
             {
-                dgvResults.Rows.Add(
-                    item.Text,
-                    string.Join(", ", item.Resources),
-                    item.DurationHours,
-                    item.StartTime,
-                    item.EndTime,
-                    item.Cost,
-                    item.Consequence ?? "-"
-                );
+                dgvCentralTable.Columns.Add("Q" + i, results[i].TableText);
             }
+
+            // Фиксированная ширина колонок
+            int equalWidth = dgvCentralTable.Width / columnCount;
+            foreach (DataGridViewColumn col in dgvCentralTable.Columns)
+            {
+                col.Width = equalWidth;
+            }
+            dgvCentralTable.ColumnHeadersHeight = 150;
+            // Определяем максимальное количество вариантов ответов
+            int maxOptions = 0;
+            foreach (var item in results)
+                if (item.AllOptions.Count > maxOptions)
+                    maxOptions = item.AllOptions.Count;
+
+            // Заполняем таблицу вариантами
+            for (int rowIndex = 0; rowIndex < maxOptions; rowIndex++)
+            {
+                int rowNumber = dgvCentralTable.Rows.Add();
+                for (int colIndex = 0; colIndex < results.Count; colIndex++)
+                {
+                    var item = results[colIndex];
+                    if (rowIndex < item.AllOptions.Count)
+                    {
+                        dgvCentralTable.Rows[rowNumber].Cells[colIndex].Value = item.AllOptions[rowIndex];
+                        if (rowIndex == item.SelectedOptionIndex)
+                        {
+                            dgvCentralTable.Rows[rowNumber].Cells[colIndex].Style.BackColor = Color.LightGreen;
+                            dgvCentralTable.Rows[rowNumber].Cells[colIndex].Style.Font = new Font(dgvCentralTable.Font, FontStyle.Bold);
+                        }
+                    }
+                }
+            }
+
+            currentResults = results;
             resultsButton.Enabled = currentResults.Count > 0;
             calendarButton.Enabled = currentResults.Count > 0;
+            tableButton.Enabled = currentResults.Count > 0;
+
+            dgvCentralTable.CurrentCell = null;
         }
 
         private void SelectVariantButton_Click(object sender, EventArgs e)
@@ -193,24 +224,18 @@ namespace Cybersecurity
             calendarForm.Show();
         }
 
-        public void UpdateResults(List<ResultItem> results)
+        private void TableButton_Click(object sender, EventArgs e)
         {
-            dgvResults.Rows.Clear();
-            foreach (var item in results)
+            if (currentResults.Count == 0 || currentScenario == null)
             {
-                dgvResults.Rows.Add(
-                    item.Text,
-                    string.Join(", ", item.Resources),
-                    item.DurationHours,
-                    item.StartTime,
-                    item.EndTime,
-                    item.Cost,
-                    item.Consequence ?? "-"
-                );
+                MessageBox.Show("Нет данных для отображения таблицы.");
+                return;
             }
-            currentResults = results;
-            resultsButton.Enabled = currentResults.Count > 0;
-            calendarButton.Enabled = currentResults.Count > 0;
+
+            TableForm tableForm = new TableForm(currentResults, currentScenario.Incident);
+            tableForm.FormClosed += (s, args) => this.Show();
+            this.Hide();
+            tableForm.Show();
         }
 
         public void SetCurrentScenario(Scenario scenario)

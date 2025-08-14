@@ -13,27 +13,71 @@ namespace Cybersecurity
         private ToolTip toolTip;
         private Button btnNext;
         private Button btnBack;
+        private TextBox txtExplanation;
+        private Label lblExplanation;
 
         private Scenario scenario;
+        private List<Step> steps; // универсальный список шагов
         private int currentStepIndex = 0;
         private int[] selectedOptionIndices;
+        private string[] explanations;
 
         private CentralForm centralForm;
 
+        // Конструктор с Scenario
         public ScenarioForm(Scenario scenario, CentralForm centralForm)
         {
             this.scenario = scenario ?? throw new ArgumentNullException(nameof(scenario));
             this.centralForm = centralForm ?? throw new ArgumentNullException(nameof(centralForm));
 
-            selectedOptionIndices = new int[scenario.Steps.Count];
-            for (int i = 0; i < selectedOptionIndices.Length; i++)
-                selectedOptionIndices[i] = 0;
+            steps = scenario.Steps;
+            InitStepArrays();
 
             this.Text = $"Вариант {scenario.VariantId + 1}";
             this.WindowState = FormWindowState.Maximized;
 
             this.Load += ScenarioForm_Load;
             this.FormClosed += ScenarioForm_FormClosed;
+        }
+
+        // Универсальный конструктор с вопросом и таблицей
+        public ScenarioForm(string question, List<Option> options, CentralForm centralForm, string explanation = "")
+        {
+            if (string.IsNullOrWhiteSpace(question))
+                throw new ArgumentNullException(nameof(question));
+            if (options == null || options.Count != 4)
+                throw new ArgumentException("Options должен содержать ровно 4 элемента");
+
+            this.centralForm = centralForm ?? throw new ArgumentNullException(nameof(centralForm));
+
+            steps = new List<Step>
+            {
+                new Step
+                {
+                    Question = question,
+                    Options = options
+                }
+            };
+            InitStepArrays();
+            explanations[0] = explanation;
+
+            this.Text = "Ввод данных";
+            this.WindowState = FormWindowState.Maximized;
+
+            this.Load += ScenarioForm_Load;
+            this.FormClosed += ScenarioForm_FormClosed;
+        }
+
+        private void InitStepArrays()
+        {
+            selectedOptionIndices = new int[steps.Count];
+            explanations = new string[steps.Count];
+
+            for (int i = 0; i < selectedOptionIndices.Length; i++)
+            {
+                selectedOptionIndices[i] = 0;
+                explanations[i] = "";
+            }
         }
 
         private void ScenarioForm_Load(object sender, EventArgs e)
@@ -46,7 +90,7 @@ namespace Cybersecurity
             {
                 Font = new Font("Segoe UI", 18, FontStyle.Bold),
                 AutoSize = false,
-                Width = w - 200,
+                Width = w - 550,
                 Height = 150,
                 Left = 100,
                 Top = 50
@@ -77,6 +121,30 @@ namespace Cybersecurity
                 this.Controls.Add(infoIcons[i]);
             }
 
+            lblExplanation = new Label
+            {
+                Text = "Объясните свой выбор",
+                Font = new Font("Segoe UI", 16, FontStyle.Bold),
+                Left = this.ClientSize.Width - 450,
+                Top = 55,
+                AutoSize = true
+            };
+            this.Controls.Add(lblExplanation);
+
+            txtExplanation = new TextBox
+            {
+                Font = new Font("Segoe UI", 14),
+                Multiline = true,
+                ScrollBars = ScrollBars.Vertical,
+                Width = 400,
+                Height = h - 200,
+                Left = this.ClientSize.Width - 450,
+                Top = 100,
+                Text = ""
+            };
+            txtExplanation.TextChanged += TxtExplanation_TextChanged;
+            this.Controls.Add(txtExplanation);
+
             btnBack = new Button
             {
                 Text = "Назад",
@@ -97,7 +165,8 @@ namespace Cybersecurity
                 Width = 180,
                 Height = 70,
                 Left = (w / 2) + 10,
-                Top = h - 130
+                Top = h - 130,
+                Enabled = false
             };
             btnNext.Click += BtnNext_Click;
             this.Controls.Add(btnNext);
@@ -105,9 +174,14 @@ namespace Cybersecurity
             ShowStep();
         }
 
+        private void TxtExplanation_TextChanged(object sender, EventArgs e)
+        {
+            btnNext.Enabled = !string.IsNullOrWhiteSpace(txtExplanation.Text);
+        }
+
         private void ShowStep()
         {
-            var step = scenario.Steps[currentStepIndex];
+            var step = steps[currentStepIndex];
             lblQuestion.Text = step.Question;
 
             for (int i = 0; i < 4; i++)
@@ -126,12 +200,16 @@ namespace Cybersecurity
                 toolTip.SetToolTip(infoIcons[i], description);
             }
 
-            btnNext.Text = currentStepIndex == scenario.Steps.Count - 1 ? "Завершить" : "Далее";
+            txtExplanation.Text = explanations[currentStepIndex];
+            btnNext.Enabled = !string.IsNullOrWhiteSpace(txtExplanation.Text);
+
+            btnNext.Text = currentStepIndex == steps.Count - 1 ? "Завершить" : "Далее";
             btnBack.Enabled = currentStepIndex > 0;
         }
 
         private void BtnNext_Click(object sender, EventArgs e)
         {
+            explanations[currentStepIndex] = txtExplanation.Text;
             for (int i = 0; i < 4; i++)
             {
                 if (radioOptions[i].Checked)
@@ -141,7 +219,7 @@ namespace Cybersecurity
                 }
             }
 
-            if (currentStepIndex < scenario.Steps.Count - 1)
+            if (currentStepIndex < steps.Count - 1)
             {
                 currentStepIndex++;
                 ShowStep();
@@ -154,6 +232,8 @@ namespace Cybersecurity
 
         private void BtnBack_Click(object sender, EventArgs e)
         {
+            explanations[currentStepIndex] = txtExplanation.Text;
+
             if (currentStepIndex > 0)
             {
                 currentStepIndex--;
@@ -163,15 +243,20 @@ namespace Cybersecurity
 
         private void ShowResult()
         {
-            // Установить текущий сценарий в CentralForm
-            this.centralForm.SetCurrentScenario(this.scenario);
+            explanations[currentStepIndex] = txtExplanation.Text;
+
+            if (scenario != null)
+            {
+                centralForm.SetCurrentScenario(scenario);
+            }
 
             var results = new List<ResultItem>();
-            DateTime currentTime = MoveToNextWorkingTime(scenario.StartTime);
+            DateTime currentTime = scenario != null ? MoveToNextWorkingTime(scenario.StartTime) : DateTime.Now;
 
-            for (int i = 0; i < scenario.Steps.Count; i++)
+            for (int i = 0; i < steps.Count; i++)
             {
-                var option = scenario.Steps[i].Options[selectedOptionIndices[i]];
+                var step = steps[i];
+                var option = step.Options[selectedOptionIndices[i]];
                 int hoursToAdd = option.TimeHours;
 
                 DateTime startTime = currentTime;
@@ -179,19 +264,24 @@ namespace Cybersecurity
 
                 results.Add(new ResultItem
                 {
+                    QuestionText = step.Question,
+                    TableText = step.Table,
                     Text = option.Text,
                     Resources = option.Resources,
                     StartTime = startTime,
                     EndTime = endTime,
                     DurationHours = option.TimeHours,
                     Cost = option.Cost,
-                    Consequence = option.Consequence
+                    Consequence = option.Consequence,
+                    Explanation = explanations[i],
+                    AllOptions = step.Options.ConvertAll(o => o.Text),
+                    SelectedOptionIndex = selectedOptionIndices[i]
                 });
 
                 currentTime = endTime;
             }
 
-            var resultForm = new ResultForm(results, scenario.Incident, this.centralForm, (updatedResults) =>
+            var resultForm = new ResultForm(results, scenario?.Incident, this.centralForm, (updatedResults) =>
             {
                 this.centralForm.UpdateResults(updatedResults);
             });
@@ -205,7 +295,6 @@ namespace Cybersecurity
             resultForm.Show();
             this.Hide();
         }
-
 
         private DateTime MoveToNextWorkingTime(DateTime time)
         {
